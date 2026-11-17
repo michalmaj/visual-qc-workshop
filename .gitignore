@@ -10,7 +10,6 @@ results/
 .DS_Store
 # Instructor-only material (never commit)
 setup.md
-AGENTS.md
 .instructor/
 instructor_private/
 reference_solution/

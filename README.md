@@ -31,6 +31,8 @@ All source images and reference masks are **already in the repo**. No external d
 
 ## Today's challenge
 
+**The full day plan, with timings, extra tasks and the team challenges, is in [WORKSHEET.md](WORKSHEET.md).**
+
 Images depict simple synthetic inspection scenes with scratches, spots, faint marks, bright marks, and variable lighting. Your function returns a binary segmentation mask (255 = defect). Evaluation computes per-image pixel IoU, F1, precision, recall, and per-image processing time.
 
 | Stage | Your task | Evidence to produce |
@@ -56,6 +58,7 @@ Images depict simple synthetic inspection scenes with scratches, spots, faint ma
 - Timing on a shared workstation is **exploratory** and depends on CPU load, scheduling, and data size.
 - Test on samples not used to set your thresholds. Public test masks are provided for the exercise, so this is a workshop evaluation, not a blind benchmark.
 - `opencv-python-headless` is intentional: visualize with saved files, not `cv2.imshow()`.
+- The first two rules, plus deterministic output, are checked by `tests/test_rules.py` (locally and in CI). It is a guard, not a sandbox. Review your agent's diffs, including any change to the evaluation code.
 
 ## Optional PyTorch extension (ONLY if already installed and working)
 
@@ -64,4 +67,3 @@ Try a small neural-network approach and compare quality and runtime on the same 
 ## GitHub submission
 
 Teams can fork the repository, work on a branch, and open a pull request **to their own fork**. GitHub Actions will run the same `pytest` checks. Keep a note of what the AI suggested, which checks you ran, and one meaningful limitation you found.
-# visual-qc-workshop
