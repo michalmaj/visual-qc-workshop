@@ -1,0 +1,16 @@
+# Python / IDE / workshop outputs
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.idea/
+.vscode/
+results/
+*.pyc
+.DS_Store
+# Instructor-only material (never commit)
+setup.md
+AGENTS.md
+.instructor/
+instructor_private/
+reference_solution/
