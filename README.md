@@ -66,4 +66,4 @@ Try a small neural-network approach and compare quality and runtime on the same 
 
 ## GitHub submission
 
-Teams can fork the repository, work on a branch, and open a pull request **to their own fork**. GitHub Actions will run the same `pytest` checks. Keep a note of what the AI suggested, which checks you ran, and one meaningful limitation you found.
+Teams can fork the repository, work on a branch, and open a pull request **to their own fork**. GitHub Actions will run the same `pytest` checks. If the fork's **Actions** tab says workflows are disabled, enable them first. Keep a note of what the AI suggested, which checks you ran, and one meaningful limitation you found.

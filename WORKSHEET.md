@@ -35,7 +35,7 @@ Follow the README quick start. Expected result of `uv run pytest -q`: **exactly 
 2. **Generate.** Let it implement `detect_defects()`. Run `uv run pytest -q` and `uv run python -m visual_qc.evaluate --split train --out results/train`.
 3. **Debug.** Find the worst train image in `results/train/metrics.csv`. Ask the agent *why* it fails. Then check the explanation yourself: compare `results/train/predictions/<id>.png` with the image and its mask. Was the explanation right?
 4. **Test.** Ask the agent to add one new test in `tests/test_detector_extra.py` for a case it thinks is hard. Example: a synthetic image with a strong lighting gradient and no defect should give an empty mask. Then break the detector on purpose (e.g. return all 255). Does the new test catch it? A test that never fails is not a test.
-5. **Refactor and document.** Ask the agent to split `detect_defects()` into small named steps with docstrings, *without changing behaviour*. Prove it: `metrics.csv` before and after must be identical per image.
+5. **Refactor and document.** Ask the agent to split `detect_defects()` into small named steps with docstrings, *without changing behaviour*. Prove it: run the evaluator before and after into separate folders (`--out results/before`, `--out results/after`). The `precision`, `recall`, `f1` and `iou` columns, and the prediction PNGs, must be identical. `latency_ms` will differ on every row. Why?
 
 ### Part 2 · Data + AI: from metrics to features (10:20–11:20)
 
@@ -93,7 +93,7 @@ Commit, push your branch, and update `NOTES.md`.
 
 2. **Your own agent.** Take 2 claims your agent made today. Treat them the same way and record them in `NOTES.md`.
 3. **Agent audit.** Review what your agent changed: `git diff main --stat`, then the full diff.
-   - Did it touch `tests/`, `visual_qc/evaluation.py`, `visual_qc/evaluate.py` or `data/`?
+   - Did it change anything in `tests/` other than your own new test (especially `tests/test_rules.py`)? Did it touch `visual_qc/evaluation.py`, `visual_qc/evaluate.py` or `data/`?
    - Did it read `data/masks` while developing? Check its session log.
    - Is `tests/test_rules.py` green?
    - Bonus: find one way around `test_rules.py`, explain how a human reviewer would catch it, and **do not commit it**.
@@ -125,4 +125,4 @@ Pick **one** AI Engineering Challenge. Every challenge delivers the same five th
 
 ## Submission
 
-Open a pull request **to your own fork** (README, "GitHub submission"). CI runs the same tests, including `tests/test_rules.py`. Include `NOTES.md`, your analysis script and your diagram.
+Open a pull request **to your own fork** (README, "GitHub submission"). CI runs the same tests, including `tests/test_rules.py`. If your fork's **Actions** tab says workflows are disabled, enable them first. Include `NOTES.md`, your analysis script and your diagram.

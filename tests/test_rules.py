@@ -119,12 +119,33 @@ def test_guard_allows_reading_other_files(monkeypatch):
     assert violations == []
 
 
+def _is_project_module(name: str) -> bool:
+    return name == "visual_qc" or name.startswith("visual_qc.")
+
+
+@contextlib.contextmanager
+def _fresh_project_modules():
+    """Import visual_qc from scratch inside the block, then restore the original modules.
+
+    A fresh import re-runs import-time code in every helper module and starts with
+    empty caches; restoring keeps other tests' classes and functions unchanged.
+    """
+    saved = {name: mod for name, mod in sys.modules.items() if _is_project_module(name)}
+    for name in saved:
+        del sys.modules[name]
+    try:
+        yield
+    finally:
+        for name in [n for n in sys.modules if _is_project_module(n)]:
+            del sys.modules[name]
+        sys.modules.update(saved)
+
+
 def test_detector_respects_data_rules(monkeypatch):
     images = [_load(DEFECT), _load(INTACT)]
-    with guard(monkeypatch) as violations:
+    with _fresh_project_modules(), guard(monkeypatch) as violations:
         try:
-            # Reload under the guard so reads at import time or cached reads count too.
-            module = importlib.reload(visual_qc.detector)
+            module = importlib.import_module("visual_qc.detector")
             for image in images:
                 module.detect_defects(image)
         except Exception:
